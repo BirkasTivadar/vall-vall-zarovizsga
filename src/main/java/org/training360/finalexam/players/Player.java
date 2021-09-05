@@ -17,11 +17,14 @@ public class Player {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "player_name")
     private String name;
 
+    @Column(name = "birth_date")
     private LocalDate dateOfBirth;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "player_pos")
     private PositionType position;
 
     @ManyToOne
