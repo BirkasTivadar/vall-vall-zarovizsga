@@ -1,8 +1,6 @@
 package org.training360.finalexam.players;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.training360.finalexam.teams.Team;
 
 import javax.persistence.*;
@@ -27,6 +25,8 @@ public class Player {
     private PositionType position;
 
     @ManyToOne
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Team team;
 
     public Player(String name) {

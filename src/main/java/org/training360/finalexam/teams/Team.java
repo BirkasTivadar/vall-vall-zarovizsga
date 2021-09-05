@@ -26,4 +26,12 @@ public class Team {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "team")
     private List<Player> players = new ArrayList<>();
 
+    public Team(String name) {
+        this.name = name;
+    }
+
+    public void addPlayer(Player player) {
+        players.add(player);
+        player.setTeam(this);
+    }
 }
