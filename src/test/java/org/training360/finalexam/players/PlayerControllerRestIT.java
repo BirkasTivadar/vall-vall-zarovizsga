@@ -24,72 +24,69 @@ public class PlayerControllerRestIT {
     TestRestTemplate template;
 
 
-//    @Test
-//    void testAddNewPlayers(){
-//        PlayerDTO result =
-//                template.postForObject("/api/players",
-//                        new CreatePlayerCommand("John Doe", LocalDate.of(1991,11,10),PositionType.CENTER_BACK),
-//                        PlayerDTO.class);
-//
-//
-//        assertEquals("John Doe",result.getName());
-//        assertEquals(1991,result.getDateOfBirth().getYear());
-//        assertEquals(PositionType.CENTER_BACK,result.getPosition());
-//    }
-//
-//    @Test
-//    void testGetPlayers(){
-//        template.postForObject("/api/players",
-//                new CreatePlayerCommand("John Doe", LocalDate.of(1991,11,10),PositionType.CENTER_BACK),
-//                PlayerDTO.class);
-//
-//        template.postForObject("/api/players",
-//                new CreatePlayerCommand("Jack Doe", LocalDate.of(1992,11,10),PositionType.RIGHT_WINGER),
-//                PlayerDTO.class);
-//
-//        List<PlayerDTO> result = template.exchange(
-//                "/api/players",
-//                HttpMethod.GET,
-//                null,
-//                new ParameterizedTypeReference<List<PlayerDTO>>() {
-//                }
-//        ).getBody();
-//
-//
-//        assertThat(result).extracting(PlayerDTO::getName)
-//                .containsExactly("John Doe","Jack Doe");
-//    }
-//
-//    @Test
-//    void deletePlayerById(){
-//        PlayerDTO result =template.postForObject("/api/players",
-//                new CreatePlayerCommand("John Doe", LocalDate.of(1991,11,10),PositionType.CENTER_BACK),
-//                PlayerDTO.class);
-//
-//
-//        template.delete("/api/players/{id}", result.getId());
-//
-//        List<PlayerDTO> players = template.exchange(
-//                "/api/players",
-//                HttpMethod.GET,
-//                null,
-//                new ParameterizedTypeReference<List<PlayerDTO>>() {
-//                }
-//        ).getBody();
-//
-//
-//        assertThat(players).isEmpty();
-//
-//    }
-//
-//    @Test
-//    void testCreatePlayerWithInvalidName(){
-//        Problem result =
-//                template.postForObject("/api/players",
-//                        new CreatePlayerCommand("", LocalDate.now(), PositionType.CENTER_BACK),
-//                        Problem.class);
-//
-//        assertEquals(Status.BAD_REQUEST,result.getStatus());
-//    }
-//
+    @Test
+    void testAddNewPlayers(){
+        PlayerDTO result =
+                template.postForObject("/api/players",
+                        new CreatePlayerCommand("John Doe", LocalDate.of(1991,11,10),PositionType.CENTER_BACK),
+                        PlayerDTO.class);
+
+
+        assertEquals("John Doe",result.getName());
+        assertEquals(1991,result.getDateOfBirth().getYear());
+        assertEquals(PositionType.CENTER_BACK,result.getPosition());
+    }
+
+    @Test
+    void testGetPlayers(){
+        template.postForObject("/api/players",
+                new CreatePlayerCommand("John Doe", LocalDate.of(1991,11,10),PositionType.CENTER_BACK),
+                PlayerDTO.class);
+
+        template.postForObject("/api/players",
+                new CreatePlayerCommand("Jack Doe", LocalDate.of(1992,11,10),PositionType.RIGHT_WINGER),
+                PlayerDTO.class);
+
+        List<PlayerDTO> result = template.exchange(
+                "/api/players",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<PlayerDTO>>() {
+                }
+        ).getBody();
+
+
+        assertThat(result).extracting(PlayerDTO::getName)
+                .containsExactly("John Doe","Jack Doe");
+    }
+
+    @Test
+    void deletePlayerById(){
+        PlayerDTO result =template.postForObject("/api/players",
+                new CreatePlayerCommand("John Doe", LocalDate.of(1991,11,10),PositionType.CENTER_BACK),
+                PlayerDTO.class);
+
+
+        template.delete("/api/players/{id}", result.getId());
+
+        List<PlayerDTO> players = template.exchange(
+                "/api/players",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<PlayerDTO>>() {
+                }
+        ).getBody();
+
+        assertThat(players).isEmpty();
+    }
+
+    @Test
+    void testCreatePlayerWithInvalidName(){
+        Problem result =
+                template.postForObject("/api/players",
+                        new CreatePlayerCommand("", LocalDate.now(), PositionType.CENTER_BACK),
+                        Problem.class);
+
+        assertEquals(Status.BAD_REQUEST,result.getStatus());
+    }
 }
